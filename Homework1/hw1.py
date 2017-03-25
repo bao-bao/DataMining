@@ -12,8 +12,13 @@ print data
 
 x = 840
 y = 760
-length = 44017
-matrix = [[0 for i in range(1000)] for i in range(44107)]
+length = 1000
+target = 69
+'''
+    target is the trace for lsh and knn
+'''
+
+matrix = [[0 for i in range(44107)] for i in range(1000)]
 tempArray = [0 for i in range(x * y)]
 
 '''
@@ -25,7 +30,6 @@ for d in timelist:
     '''
 for index, row in data.iterrows():
     tempArray[int((row[3] - 3448600) / 20) * int((row[2] - 346000) / 20)] = 1
-print data
 
 i = 1
 for a in tempArray:
@@ -33,22 +37,20 @@ for a in tempArray:
         a = i
         i += 1
 
-Tid = 1
-while Tid <= 1000:
-    trace = data.loc[(data['Tid'] == Tid), ['Time', 'X', 'Y']]
-    for index,row in trace.iterrows():
-        matrix[Tid][tempArray[int(row[1] * row[2])]] = 1
+Tid = 0
+while Tid < 1000:
+    trace = data.loc[(data['Tid'] == Tid + 1), ['Time', 'X', 'Y']]
+    for index, row in trace.iterrows():
+        matrix[Tid][tempArray[int((row[2] - 3448600) / 20) * int((row[1] - 346000) / 20)]] = 1
     Tid += 1
-print matrix
 
-lsh = LSHash(4, length)
-for row in matrix:
-    lsh.index(row)
-result = lsh.query(matrix[0])
+lsh = LSHash(20000, 44107)
+for element in matrix:
+    lsh.index(element)
+result = lsh.query(matrix[target - 1])
 for row in result:
-    print row[1]
+    print row
 
-'''
-nbrs = NearestNeighbors(n_neighbors=3).fit(data)
-nbrs.kneighbors()
-'''
+nbrs = NearestNeighbors(n_neighbors=20)
+nbrs.fit(matrix)
+print nbrs.kneighbors(matrix[target - 1])
