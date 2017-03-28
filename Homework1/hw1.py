@@ -31,13 +31,12 @@ while tid < 1000:
         matrix[tid][temparray[int((row[1] - 346000) / 20) * 760 + int((row[2] - 3448600) / 20)]] = 1
     tid += 1
 
-lsh = LSHash(2000, 44107)
+lsh = LSHash(2200, 44107)
 for element in matrix:
     lsh.index(element)
-result = lsh.query(matrix[target - 1])
+result = lsh.query(matrix[target - 1], 5, 'hamming')
 for row in result:
-    save = pd.DataFrame(row)
-    save.to_csv('hw1.csv')
+    print row
 
 nbrs = NearestNeighbors(n_neighbors=5)
 nbrs.fit(matrix)
