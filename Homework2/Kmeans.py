@@ -6,7 +6,7 @@ from sklearn.cluster import KMeans
 def kmeans(x, metric='hamming'):
     best_silhouette = -1
     best_clusters = 0
-    cluster_silhouette = np.zeros((50, 2))
+    cluster_silhouette = np.zeros((50, 2), dtype=int)
 
     for clusters in range(22, 23, 1):
         print 'Begin KMeans for cluster = %d' % clusters
