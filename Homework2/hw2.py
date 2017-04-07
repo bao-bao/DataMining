@@ -8,7 +8,6 @@ import GaussianMixture
 from Util import *
 
 matrix = ReadTraj_1000_SH_UTM.read()
-
-kmeans = Kmeans.kmeans(matrix)
-# gm = GaussianMixture.gaussianMixture(matrix)
-# dbscan = DBScan.DbScan(matrix, 15, 25, 0.5)
+# kmeans = Kmeans.kmeans(matrix)
+gm = GaussianMixture.gaussian_mixture(matrix)
+# dbscan = DBScan.dbscan(matrix, 15, 19, 0.5)

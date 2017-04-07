@@ -1,10 +1,10 @@
 import numpy as np
-import matplotlib.pyplot as plt
+import pandas as pd
 from sklearn import metrics
 from sklearn.cluster import DBSCAN
 
 
-def DbScan(x, min_eps, max_eps, delta):
+def dbscan(x, min_eps, max_eps, delta):
     eps = min_eps
     best_eps = min_eps
     best_silhouette = -1
@@ -25,12 +25,13 @@ def DbScan(x, min_eps, max_eps, delta):
         eps_list = np.append(eps_list, eps)
         eps += delta
 
-    plt.plot(eps_list, silhouettes, 'b*')
-    plt.plot(eps_list, silhouettes, 'r')
-    plt.xlabel('eps')
-    plt.ylabel('silhouette')
-    plt.show()
+#    plt.plot(eps_list, silhouettes, 'b*')
+#    plt.plot(eps_list, silhouettes, 'r')
+#    plt.xlabel('eps')
+#    plt.ylabel('silhouette')
+#    plt.show()
 
-    print 'Best eps = %f, silhouette = %f' %(best_eps, best_silhouette)
-
+    print 'Best eps = %f, silhouette = %f' % (best_eps, best_silhouette)
+    save = pd.DataFrame({'eps': eps_list, 'silhouette': silhouettes})
+    save.to_csv('DbscanOutput.csv')
 #    return clf.labels_
