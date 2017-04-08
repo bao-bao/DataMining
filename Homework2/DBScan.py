@@ -13,7 +13,7 @@ def dbscan(x, min_eps, max_eps, delta):
 
     while eps < max_eps:
         print 'begin dbscan for eps = %f' % eps
-        clf = DBSCAN(eps=eps, min_samples=10).fit(x)
+        clf = DBSCAN(eps=eps, min_samples=15).fit(x)
         silhouette = metrics.silhouette_score(x, clf.labels_)
 
         if best_silhouette < silhouette:
@@ -30,6 +30,11 @@ def dbscan(x, min_eps, max_eps, delta):
 #    plt.xlabel('eps')
 #    plt.ylabel('silhouette')
 #    plt.show()
+
+    best_clf = DBSCAN(best_eps, min_samples=15).fit(x)
+    np.savetxt('DbScanBest.csv', best_clf.labels_)
+    np.savetxt('DbScanCenter.csv', best_clf.core_sample_indices_)
+    print best_clf
 
     print 'Best eps = %f, silhouette = %f' % (best_eps, best_silhouette)
     save = pd.DataFrame({'eps': eps_list, 'silhouette': silhouettes})

@@ -9,5 +9,5 @@ from Util import *
 
 matrix = ReadTraj_1000_SH_UTM.read()
 # kmeans = Kmeans.kmeans(matrix)
-gm = GaussianMixture.gaussian_mixture(matrix)
-# dbscan = DBScan.dbscan(matrix, 15, 19, 0.5)
+# dbscan = DBScan.dbscan(matrix, 12, 19, 0.5)
+gm = GaussianMixture.gaussian_mixture('dbscan', matrix, 2)

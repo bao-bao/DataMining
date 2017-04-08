@@ -27,5 +27,5 @@ def read():
             matrix[tid][temparray[int((row[1] - 346000) / 20) * 760 + int((row[2] - 3448600) / 20)]] = 1
         tid += 1
 
-    save = pd.DataFrame(matrix)
+    save = pd.DataFrame(matrix, dtype=int)
     return save

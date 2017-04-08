@@ -1,33 +1,40 @@
 import numpy as np
 
-from sklearn import datasets
+from sklearn.cluster import KMeans
+from sklearn.cluster import DBSCAN
+
 from sklearn.mixture import GaussianMixture
 from sklearn.model_selection import StratifiedKFold
+from sklearn.decomposition import PCA
 
-print(__doc__)
 
+def gaussian_mixture(m, x, n_components):
+    pca = PCA(n_components=1000)
+    data_ = pca.fit_transform(x)
 
-def gaussian_mixture(x):
-    iris = datasets.load_iris()
-    iris.data = x
-    iris.target = [[250]]
+    if m == 'kmeans':
+        target_ = KMeans(n_clusters=2, random_state=11).fit_predict(data_)
+
+    if m == 'dbscan':
+        dbscan = DBSCAN(eps=20, min_samples=5).fit(data_)
+        target_ = dbscan.labels_
 
     # Break up the dataset into non-overlapping training (75%) and testing
     # (25%) sets.
     skf = StratifiedKFold(n_splits=4)
     # Only take the first fold.
-    train_index, test_index = next(iter(skf.split(iris.data, iris.target)))
+    train_index, test_index = next(iter(skf.split(data_, target_)))
     print train_index, test_index
 
-    x_train = iris.data[train_index]
-    y_train = iris.target[train_index]
-    x_test = iris.data[test_index]
-    y_test = iris.target[test_index]
+    x_train = data_[train_index]
+    y_train = target_[train_index]
+    x_test = data_[test_index]
+    y_test = target_[test_index]
 
     n_classes = len(np.unique(y_train))
 
     # Try GMMs using different types of covariances.
-    estimators = dict((cov_type, GaussianMixture(n_components=n_classes,
+    estimators = dict((cov_type, GaussianMixture(n_components=n_components,
                                                  covariance_type=cov_type, max_iter=20, random_state=0))
                       for cov_type in ['spherical', 'diag', 'tied', 'full'])
 
