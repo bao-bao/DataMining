@@ -9,8 +9,12 @@ import numpy as np
 def readcsv(x):
     start = time.time()
 
-    data_ = np.full((20000, 18), -999, dtype=float)
-    target_ = np.full((20000, 2), -999, dtype=float)
+    size = 20000
+
+    data_ = np.full((size, 18), -999, dtype=float)
+    target_ = np.full((size, 2), -999, dtype=float)
+    grid_ = np.zeros(size, dtype=int)
+
     dataframe = pd.read_csv(x)
 
     for index, row in dataframe.iterrows():
@@ -23,8 +27,9 @@ def readcsv(x):
                 i += 1
             target_[index / 4][0] = row[9]
             target_[index / 4][1] = row[10]
+            grid_[index / 4] = row[47]
 
     end = time.time()
     print "example run in %.2fs" % (end - start)
 
-    return data_, target_
+    return data_, target_, grid_
