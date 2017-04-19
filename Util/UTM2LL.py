@@ -3,9 +3,9 @@
     Created by AMXPC on 2017/4/8.
 """
 import math
-import pandas as pd
+
 import numpy as np
-import ReadTraj_1000_SH_UTM as rt
+import pandas as pd
 
 # for convenient only
 sin = math.sin

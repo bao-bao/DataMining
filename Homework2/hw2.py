@@ -5,7 +5,7 @@
 import Kmeans
 import DBScan
 import GaussianMixture
-from Util import *
+import ReadTraj_1000_SH_UTM
 
 matrix = ReadTraj_1000_SH_UTM.read()
 # kmeans = Kmeans.kmeans(matrix)
