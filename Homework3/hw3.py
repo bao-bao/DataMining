@@ -2,29 +2,28 @@
     Created by AMXPC on 2017/4/19.
 """
 
-import time
+import pandas as pd
+import numpy as np
 import ReadData
 import RandomForest
 
 
-def RandomForestRegressor():
-    start_time = time.time()
-    data, target, grid = ReadData.readcsv("data/new2gtrain.csv")
-    RandomForest.rfr(data, target)
-    stop_time = time.time()
+def RFRoffset(x, y):
+    predict, real = RandomForest.rfr(x, y)
+    size = predict.shape[0]
+    distance = np.zeros(4000)
+    for row in xrange(size):
+        print predict[row], real[row]
+        distance[row] = 3
 
-    print "Simple use %.2f seconds" % (stop_time - start_time)
 
-
-def RandomForestClassifier():
-    start_time = time.time()
-    data, target, grid = ReadData.readcsv("data/new2gtrain.csv")
-    RandomForest.rfc(data, grid)
-    stop_time = time.time()
-
-    print "Simple use %.2f seconds" % (stop_time - start_time)
+def RFCoffset(x, y):
+    predict, real = RandomForest.rfc(x, y)
 
 
 if __name__ == '__main__':
-    # RandomForestRegressor()
-    RandomForestClassifier()
+    data, target, grid = ReadData.readcsv("data/new4gtest.csv")
+    # RandomForest.rfr(data, target)
+    # RandomForest.rfc(data, grid)
+    RFRoffset(data, target)
+    # RFCoffset(data, grid)

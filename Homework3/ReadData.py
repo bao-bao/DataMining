@@ -30,6 +30,6 @@ def readcsv(x):
             grid_[index / 4] = row[47]
 
     end = time.time()
-    print "example run in %.2fs" % (end - start)
+    print "Read data in %.2fs" % (end - start)
 
     return data_, target_, grid_
