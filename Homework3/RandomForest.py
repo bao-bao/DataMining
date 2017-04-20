@@ -3,16 +3,17 @@
 """
 
 import pandas as pd
+import random
 
 from sklearn.ensemble import RandomForestRegressor, RandomForestClassifier
 from sklearn.model_selection import train_test_split
 
 
-def rfr(x, y):
-    max_depth = 8
-    x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.8, random_state=4)
+def rfr(x, y, r):
+    max_depth = 20
+    x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.8, random_state=r)
 
-    random_forest = RandomForestRegressor(max_depth=max_depth, random_state=3)
+    random_forest = RandomForestRegressor(max_depth=max_depth, random_state=random.randint(1, 200))
     random_forest.fit(x_train, y_train)
     predict = random_forest.predict(x_test)
 
@@ -21,11 +22,12 @@ def rfr(x, y):
     return predict, y_test
 
 
-def rfc(x, y):
+def rfc(x, y, r):
     max_depth = 20
-    x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.8, random_state=4)
+    x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.8, random_state=r)
+    print y_test
 
-    random_forest = RandomForestClassifier(max_depth=max_depth, random_state=3)
+    random_forest = RandomForestClassifier(max_depth=max_depth, random_state=random.randint(1, 200))
     random_forest.fit(x_train, y_train)
     predict = random_forest.predict(x_test)
 
