@@ -24,7 +24,7 @@ def rfr(x, y, r):
 
 def rfc(x, y, r):
     max_depth = 2
-    while max_depth < 100:
+    while max_depth < 25:
         x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.8, random_state=r)
 
         random_forest = RandomForestClassifier(max_depth=max_depth, random_state=random.randint(1, 200))

@@ -3,9 +3,11 @@
 """
 
 import random
+
 import numpy as np
-import ReadData
+
 import RandomForest
+import ReadData
 
 
 def RFRoffset(x, y):
@@ -47,8 +49,7 @@ def RFCoffset(x, y):
 
 
 if __name__ == '__main__':
-    data, target, grid = ReadData.readcsv("data/new4gtrain.csv")
-    d, t, g = ReadData.readcsv("data/new4gtest.csv")
+    data, target, grid = ReadData.readcsv("../data/new2gtrain.csv")
     # RandomForest.rfr(data, target, random.randint(1, 999))
     RandomForest.rfc(data, grid, random.randint(1, 999))
     # RFRoffset(data, target)
