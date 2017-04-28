@@ -2,8 +2,14 @@
 """
     A sample for Apriori algorithm
     ===============================================================
-    *** dataset: dictionary of transactions
+    :param:
+    *** dataset: dictionary of transactions     eg: {name: list(items, ...), ...}
     *** minSupport: minimum support number rather than percentage
+    
+    :return:
+    *** F: frequent itemsets, all of Fk sets. F[-1] is the final frequent set
+    *** supdata: dictionary contains support value of every frequent itemsets
+                eg: {frequent itemsets: support value, ...}
 """
 import ReadData
 
@@ -15,16 +21,17 @@ def apriori(dataSet, minSupport=1):
     print "iter = 1, candidate set length = %d" % len(F1)
     k = 2
 
-    while len(F[k - 2]) > 0:
+    while len(F[k - 2]) > 1:
         Ck = candidategen(F[k - 2], k)
         Fk, supK = scan(dataSet, Ck, minSupport)
-        print "F appending..."
+        print "F%d appending..." % k
         F.append(Fk)
-        print "support data updating..."
+        print "F%d support data updating..." % k
         supdata.update(supK)
         print "iter = %d, candidate set length = %d" % (k, len(Fk))
         k += 1
 
+    print "frequent itemsets generated as %s, support is %d" % (F[-1], supdata[F[-1][0]])
     return F, supdata
 
 
@@ -63,12 +70,13 @@ def scan(dataset, ck, support):
 def candidategen(fk, k):
     nextck = list()
 
+    print "C%d joining..." % k
     for i in xrange(len(fk) - 1):
         for j in xrange(i + 1, len(fk)):
             if len(fk[i] & fk[j]) == k - 2:    # 交集大小为k-2，取其并集作为下一步候选集元素
                 nextck.append(fk[i] | fk[j])
 
-    print "reducing Ck+1..."
+    print "C%d pruning..." % k
     # print list(set(nextck))
     return list(set(nextck))
 
