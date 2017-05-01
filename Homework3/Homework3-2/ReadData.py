@@ -29,7 +29,7 @@ def readcsv_withtime(x):
         if row[0] != time:
             dic[row[1]].append([])
         if row[47] not in dic[row[1]][-1]:
-            dic[row[1]][-1].append(row[47])
+            dic[row[1]][-1].append(str(row[47]))
         time = row[0]
 
     # print dic
