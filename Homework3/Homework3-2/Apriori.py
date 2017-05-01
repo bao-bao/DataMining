@@ -15,13 +15,14 @@ import ReadData
 
 
 def apriori(dataSet, minSupport=1):
+    print "Apriori Running..."
     C1 = init_c1(dataSet)
     F1, supdata = scan(dataSet, C1, minSupport)
     F = [F1]
     print "iter = 1, candidate set length = %d" % len(F1)
     k = 2
 
-    while len(F[k - 2]) > 1:
+    while len(F[k - 2]) > 0:
         Ck = candidategen(F[k - 2], k)
         Fk, supK = scan(dataSet, Ck, minSupport)
         print "F%d appending..." % k
@@ -31,7 +32,7 @@ def apriori(dataSet, minSupport=1):
         print "iter = %d, candidate set length = %d" % (k, len(Fk))
         k += 1
 
-    print "frequent itemsets generated as %s, support is %d" % (F[-1], supdata[F[-1][0]])
+    F.pop()
     return F, supdata
 
 
