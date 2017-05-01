@@ -1,6 +1,12 @@
 """
     A sample for FP-growth algorithm
-    ===============================================================
+    ===============================================================    
+    :param:
+    *** dataset: dictionary of transactions     eg: {name: list(items, ...), ...}
+    *** minSupport: minimum support number rather than percentage
+    
+    :return:
+    *** freqItems: frequent itemsets in dataset restricted by minSupport
 """
 
 
