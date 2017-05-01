@@ -1,5 +1,5 @@
 """
-    A sample for FP-growth algorithm
+    A sample for GSP algorithm
     ===============================================================    
     :param:
     *** dataset: dictionary of transactions with time sequence     eg: {name: list(list(str(items), ...), ...)), ...}
