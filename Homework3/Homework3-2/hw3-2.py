@@ -9,8 +9,8 @@ import GSP
 import time
 
 if __name__ == '__main__':
-    # dic = ReadData.readcsv_withtime("../data/new4gtrain.csv")
     # dic = ReadData.readcsv_notime("../data/new4gtrain.csv")
+    # dic_t = ReadData.readcsv_withtime("../data/new4gtrain.csv")
     dic = TestData.gettest()
     dic_t = TestData.getTimeTest()
 
